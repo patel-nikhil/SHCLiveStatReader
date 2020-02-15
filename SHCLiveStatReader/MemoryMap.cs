@@ -15,35 +15,35 @@ namespace SHC
             playerData = new Dictionary<string, Data>
             {
                 {
-                    "Player1", new Data("Player1", CreatePlayerDataDictionary(0x024BA286,0x011F2938,0x011F2968,0x011F2870,0x011F24A4,0x011F24A0))
+                    "Player1", new Data("Player1", CreatePlayerDataDictionary(0x024BA286,0x011F2938,0x011F27E4,0x011F2870,0x011F45AC,0x011F24A0))
                 },
 
                 {
-                    "Player2", new Data("Player2", CreatePlayerDataDictionary(0x024BA2E0,0x011F632C,0x011F635C,0x011F6264,0x011F5E98,0x011F5E94))
+                    "Player2", new Data("Player2", CreatePlayerDataDictionary(0x024BA2E0,0x011F632C,0x011F61D8,0x011F6264,0x011F7FA0,0x011F5E94))
                 },
 
                 {
-                    "Player3", new Data("Player3", CreatePlayerDataDictionary(0x024BA33A,0x011F9D20,0x011F9D50,0x011F9C58,0x011F988C,0x011F9888))
+                    "Player3", new Data("Player3", CreatePlayerDataDictionary(0x024BA33A,0x011F9D20,0x011F9BCC,0x011F9C58,0x011FB994,0x011F9888))
                 },
 
                 {
-                    "Player4", new Data("Player4", CreatePlayerDataDictionary(0x024BA394,0x011FD714,0x011FD744,0x011FD64C,0x011FD280,0x011FD27C))
+                    "Player4", new Data("Player4", CreatePlayerDataDictionary(0x024BA394,0x011FD714,0x011FD5C0,0x011FD64C,0x011FF388,0x011FD27C))
                 },
 
                 {
-                    "Player5", new Data("Player5", CreatePlayerDataDictionary(0x024BA3EE,0x01201108,0x01201138,0x01201040,0x01200C74,0x01200C70))
+                    "Player5", new Data("Player5", CreatePlayerDataDictionary(0x024BA3EE,0x01201108,0x01200fb4,0x01201040,0x01202D7C,0x01200C70))
                 },
 
                 {
-                    "Player6", new Data("Player6", CreatePlayerDataDictionary(0x024BA448,0x01204AFC,0x01204B2C,0x01204A34,0x01204668,0x01204664))
+                    "Player6", new Data("Player6", CreatePlayerDataDictionary(0x024BA448,0x01204AFC,0x012049A8,0x01204A34,0x01206770,0x01204664))
                 },
 
                 {
-                    "Player7", new Data("Player7", CreatePlayerDataDictionary(0x024BA4A2,0x012084F0,0x01208520,0x01208428,0x0120805C,0x01208058))
+                    "Player7", new Data("Player7", CreatePlayerDataDictionary(0x024BA4A2,0x012084F0,0x0120839C,0x01208428,0x0120A164,0x01208058))
                 },
 
                 {
-                    "Player8", new Data("Player8", CreatePlayerDataDictionary(0x024BA4FC,0x0120BEE4,0x0120BF14,0x0120BE1C,0x0120BA50,0x120BA4C))
+                    "Player8", new Data("Player8", CreatePlayerDataDictionary(0x024BA4FC,0x0120BEE4,0x0120BD90,0x0120BE1C,0x0120DB58,0x120BA4C))
                 }
             };
             leaderBoard = new Dictionary<string, Data>
