@@ -124,7 +124,7 @@ namespace SHC
             foreach (KeyValuePair<String, Data> data in playerData)
             {
                 String dataString = data.Value.ToString();
-                if (dataString == "") break;
+                if (dataString == "") continue;
                 str += dataString + ",\n";
             }
             str = str.Remove(str.Length - 2);
@@ -148,7 +148,7 @@ namespace SHC
             foreach (KeyValuePair<String, Data> data in leaderBoard)
             {
                 String dataString = data.Value.ToString();
-                if (dataString == "") break;
+                if (dataString == "") continue;
                 str += dataString + ",\n";
             }
             str = str.Remove(str.Length - 2);
