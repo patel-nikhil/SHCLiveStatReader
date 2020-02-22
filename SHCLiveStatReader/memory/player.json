@@ -1,0 +1,80 @@
+{
+  "Active": {
+    "address": "0x24BA557",
+    "type": "boolean",
+    "category": "other",
+    "offset": "0x1"
+  },
+  "Name": {
+    "address": "0x24BA286",
+    "type": "string",
+    "category": "other",
+    "offset": "0x5A"
+  },
+  "Team": {
+    "address": "0x24BAAB6",
+    "type": "byte",
+    "category": "other",
+    "offset": "0x1"
+  },
+  "Gold": {
+    "address": "0x11F2938",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "Units": {
+    "address": "0x11F27E4",
+    "type": "integer",
+    "category": "military",
+    "offset": "0x39F4"
+  },
+  "WeightedUnits": {
+    "address": "0x11F5D14",
+    "type": "integer",
+    "category": "military",
+    "offset": "0x39F4"
+  },
+  "Popularity": {
+    "address": "0x11F2870",
+    "type": "word",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "Population": {
+    "address": "0x11F45AC",
+    "type": "word",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "Housing": {
+    "address": "0x11F24A0",
+    "type": "word",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "Wood": {
+    "address": "0x11F2904",
+    "type": "integer",
+    "category": "resource",
+    "offset": "0x39F4"
+  },
+  "Stone": {
+    "address": "0x11F290C",
+    "type": "integer",
+    "category": "resource",
+    "offset": "0x39F4"
+  },
+  "Iron": {
+    "address": "0x11F2914",
+    "type": "integer",
+    "category": "resource",
+    "offset": "0x39F4"
+  },
+  "Pitch": {
+    "address": "0x11F2918",
+    "type": "integer",
+    "category": "resource",
+    "offset": "0x39F4"
+  }
+}
