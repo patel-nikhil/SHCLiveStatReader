@@ -83,7 +83,7 @@ namespace SHC
                 for (int i = 0; i < PlayerFactory.PlayerList.Count; i++)
                 {
                     Player player = PlayerFactory.PlayerList[i];
-                    bool active = Reader.ReadBool(Convert.ToInt32(player.Data["Active"]["address"].ToString(), 16), 1);
+                    bool active = Reader.ReadBool(Convert.ToInt32(Player.Data["Active"]["address"].ToString(), 16), 1);
                     if (!active)
                     {
                         continue;

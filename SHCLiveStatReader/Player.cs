@@ -9,7 +9,7 @@ namespace SHC
 {
     class Player
     {
-        public Dictionary<String, Dictionary<String, String>> Data { get; }
+        public static Dictionary<String, Dictionary<String, String>> Data { set;  get; }
         int Number { get; }
         int Score { get;  }
 
@@ -21,10 +21,9 @@ namespace SHC
             }
         }
 
-        public Player(int number, Dictionary<String, Dictionary<String, String>> data)
+        public Player(int number)
         {
             this.Number = number;
-            this.Data = data;
         }
 
         public String Update()
