@@ -16,7 +16,7 @@ namespace SHC
         static PlayerFactory()
         {
             Player.Data = 
-                JsonConvert.DeserializeObject<Dictionary<String,Dictionary<String, String>>>(File.ReadAllText("memory/player.json"));
+                JsonConvert.DeserializeObject<Dictionary<String,Dictionary<String, Object>>>(File.ReadAllText("memory/player.json"));
 
             PlayerList = new List<Player>();
 

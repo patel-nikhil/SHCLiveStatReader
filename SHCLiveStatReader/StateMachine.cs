@@ -88,16 +88,18 @@ namespace SHC
 
             if (Game())
             {
-                Dictionary<String, String> gameData = new Dictionary<string, string>();
+                LinkedList<Dictionary<String, Object>> gameData = new LinkedList<Dictionary<String, Object>>();
                 for (int i = 0; i < PlayerFactory.PlayerList.Count; i++)
                 {
                     Player player = PlayerFactory.PlayerList[i];
-                    bool active = Reader.ReadBool(Convert.ToInt32(Player.Data["Active"]["address"].ToString(), 16), 1);
-                    if (!active)
+                    Object active = Reader.ReadType(Convert.ToInt32(Player.Data["Active"]["address"].ToString(), 16) 
+                        + Convert.ToInt32(Player.Data["Active"]["offset"].ToString(), 16) * i, "boolean");
+
+                    if (active.ToString().ToLowerInvariant() == "false")
                     {
                         continue;
                     }
-                    gameData["Player" + (i + 1).ToString()] = player.Update();
+                    gameData.AddLast(player.Update());
                 }
                 System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(gameData));
             }

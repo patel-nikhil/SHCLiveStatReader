@@ -10,7 +10,6 @@ namespace SHC
 {
     class GreatestLord
     {
-
         static int maxPlayers = 8;
         public static List<Player> PlayerList { get; }
         static Dictionary<String, Dictionary<String, Dictionary<String, String>>> playerData;
@@ -20,7 +19,7 @@ namespace SHC
                 JsonConvert.DeserializeObject<Dictionary<String, Dictionary<String, Dictionary<String, String>>>>(File.ReadAllText("memory/greatestlord.json"));
         }
 
-        public static String Update()
+        public static Dictionary<String, Object> Update()
         {
             Dictionary<String, Int32> scoreDict = new Dictionary<string, int>();
             scoreDict["Gold"] = 0;
@@ -32,14 +31,14 @@ namespace SHC
             scoreDict["Map End Month"] = 0;
             scoreDict["WeightedBuildingsDestroyed"] = 0;
 
-            Dictionary<String, Dictionary<String, String>> jsonDict = new Dictionary<String, Dictionary<String, String>>();
-            jsonDict["Map"] = new Dictionary<String, String>();
+            Dictionary<String, Object> jsonDict = new Dictionary<String, Object>();
+            Dictionary<String, Object> mapStats = new Dictionary<String, Object>();
 
             foreach (KeyValuePair<String, Dictionary<String, String>> entry in playerData["Map"])
             {
                 Int32 addr = Convert.ToInt32(entry.Value["address"], 16);
                 Object value = Reader.ReadType(addr, entry.Value["type"].ToString());
-                jsonDict["Map"][entry.Key] = value.ToString();
+                mapStats[entry.Key] = value;
                 try
                 {
                     scoreDict[entry.Key] = Convert.ToInt32(value);
@@ -49,17 +48,26 @@ namespace SHC
                     continue;
                 }
             }
+            jsonDict["Map"] = mapStats;
 
+            LinkedList<Dictionary<String, Object>> playerStats = new LinkedList<Dictionary<String, Object>>();
             for (var i = 0; i < GreatestLord.maxPlayers; i++)
             {
-                jsonDict["Player" + (i + 1).ToString()] = new Dictionary<String, String>();
+                Dictionary<String, Object> currentPlayer = new Dictionary<String, Object>();
+                currentPlayer["PlayerNumber"] = i + 1;
                 foreach (KeyValuePair<String, Dictionary<String, String>> entry in playerData["Player"])
                 {
                     Int32 addr = Convert.ToInt32(entry.Value["address"], 16) + Convert.ToInt32(entry.Value["offset"], 16) * i;
                     String type = entry.Value["type"];
 
                     Object value = Reader.ReadType(addr, type);
-                    jsonDict["Player" + (i + 1).ToString()][entry.Key] = value.ToString();
+                    currentPlayer[entry.Key] = value;
+
+                    if (entry.Key == "Active" && value.ToString().ToLowerInvariant() == "false")
+                    {
+                        break;
+                    }
+
                     try
                     {
                         scoreDict[entry.Key] = Convert.ToInt32(value);
@@ -69,12 +77,18 @@ namespace SHC
                         continue;
                     }
                 }
-                jsonDict["Player" + (i + 1).ToString()]["Score"] = 
+                if (currentPlayer["Active"].ToString().ToLowerInvariant() == "false")
+                {
+                    continue;
+                }
+                currentPlayer["Score"] = 
                     GreatestLord.CalculateScore(scoreDict["Gold"], scoreDict["LordKills"], scoreDict["WeightedTroopsKilled"], 
                     scoreDict["WeightedBuildingsDestroyed"], scoreDict["Map Start Year"], scoreDict["Map Start Month"],
-                    scoreDict["Map End Year"], scoreDict["Map End Month"]).ToString();
+                    scoreDict["Map End Year"], scoreDict["Map End Month"]);
+                playerStats.AddLast(currentPlayer);
             }
-            return JsonConvert.SerializeObject(jsonDict);
+            jsonDict["PlayerStatistics"] = playerStats;
+            return jsonDict;
         }
 
         public static long CalculateScore

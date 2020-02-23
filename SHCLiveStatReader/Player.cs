@@ -9,7 +9,7 @@ namespace SHC
 {
     class Player
     {
-        public static Dictionary<String, Dictionary<String, String>> Data { set;  get; }
+        public static Dictionary<String, Dictionary<String, Object>> Data { set;  get; }
         int Number { get; }
         int Score { get;  }
 
@@ -26,45 +26,45 @@ namespace SHC
             this.Number = number;
         }
 
-        public String Update()
+        public Dictionary<String, Object> Update()
         {
             Int32 gold = 0;
             Int32 weightedUnits = 0;
             Int32 resources = 0;
 
-            Dictionary<String, String> jsonDict = new Dictionary<string, string>();
-            jsonDict["PlayerNumber"] = this.Number.ToString();
-            jsonDict["Alive"] = this.IsAlive.ToString();
+            Dictionary<String, Object> jsonDict = new Dictionary<String, Object>();
+            jsonDict["PlayerNumber"] = this.Number;
+            jsonDict["Alive"] = this.IsAlive;
 
-            foreach (KeyValuePair<String, Dictionary<String, String>> entry in Data)
+            foreach (KeyValuePair<String, Dictionary<String, Object>> entry in Data)
             {
-                Int32 addr = Convert.ToInt32(entry.Value["address"], 16) + Convert.ToInt32(entry.Value["offset"], 16) * (Number - 1);
+                Int32 addr = Convert.ToInt32((String)entry.Value["address"], 16) + Convert.ToInt32((String)entry.Value["offset"], 16) * (Number - 1);
 
                 if (entry.Key == "Gold")
                 {
                     gold += Reader.ReadInt(addr, 8);
-                    jsonDict["Gold"] = gold.ToString();
+                    jsonDict["Gold"] = gold;
                     continue;
                 } else if (entry.Key == "WeightedUnits")
                 {
                     weightedUnits += Reader.ReadInt(addr, 8);
-                    jsonDict["WeightedUnits"] = weightedUnits.ToString();
+                    jsonDict["WeightedUnits"] = weightedUnits;
                     continue;
                 }
 
-                String type = entry.Value["type"];
+                String type = (String)entry.Value["type"];
                 Object value = Reader.ReadType(addr, type);
 
-                if (entry.Value["category"] == "resource")
+                if ((String)entry.Value["category"] == "resource")
                 {
                     resources += Convert.ToInt32(value);
                 }
-                jsonDict[entry.Key] = value.ToString();
+                jsonDict[entry.Key] = value;
             }
             Int32 score = (gold >> 2) + weightedUnits * 2 + Math.Min((resources >> 2),1) * 10;
-            jsonDict["Score"] = score.ToString();
-            jsonDict["Resources"] = resources.ToString();
-            return JsonConvert.SerializeObject(jsonDict);
+            jsonDict["Score"] = score;
+            jsonDict["Resources"] = resources;
+            return jsonDict;
         }
     }
 }
