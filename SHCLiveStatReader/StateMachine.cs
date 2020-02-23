@@ -12,9 +12,9 @@ namespace SHC
         static Dictionary<String, State> stateList = new Dictionary<string, State>();
         static State currentState;
         static List<int> ActivePlayers { get; }
-
         static Random gen = new Random();
-        static int GameID = gen.Next();
+
+        static String currentFilename = "GreatestLord.txt";
 
         static StateMachine()
         {
@@ -65,15 +65,24 @@ namespace SHC
         {
             if (!currentState.isActive())
             {
+                State prevState = StateMachine.currentState;
                 currentState = StateMachine.Next();
 
                 if (Stats())
                 {
-                    String filename = "greatestLord " + GameID.ToString() + ".txt";
-                    File.WriteAllText(filename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update()));
-                } else if (Lobby())
+                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update()));
+                } else if (Game() && prevState == stateList["Lobby"])
                 {
-                    GameID = gen.Next();
+                    Func<String> GetFilename = () => { return "GreatestLord " + gen.Next().ToString() + ".txt"; };
+                    if (File.Exists(currentFilename))
+                    {
+                        String saveFileName = GetFilename();
+                        while (File.Exists(saveFileName))
+                        {
+                            saveFileName = GetFilename();
+                        }
+                        File.Move(currentFilename, saveFileName);
+                    }
                 }
             }
 
@@ -90,7 +99,7 @@ namespace SHC
                     }
                     gameData["Player" + (i + 1).ToString()] = player.Update();
                 }
-                System.IO.File.WriteAllText("playerStats.txt", Newtonsoft.Json.JsonConvert.SerializeObject(gameData));
+                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(gameData));
             }
         }
 
