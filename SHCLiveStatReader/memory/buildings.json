@@ -1,0 +1,9 @@
+{
+  "Buildings": {
+    "address": "0x00F9C6CA",
+    "type": "integer",
+    "category": "building",
+    "owneroffset": "0x4",
+    "offset": "0x32C"
+  }
+}

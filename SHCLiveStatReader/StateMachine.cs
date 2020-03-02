@@ -101,7 +101,20 @@ namespace SHC
                     }
                     gameData.AddLast(player.Update());
                 }
-                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(gameData));
+                Int32 totalBuildings = 0;
+                foreach (var data in gameData)
+                {
+                    if (data.ContainsKey("CurrentTotalBuildings"))
+                    {
+                        totalBuildings += Convert.ToInt32(data["CurrentTotalBuildings"]);
+                    }
+                }
+                LinkedList<Dictionary<String, Object>> playerStats = PlayerStatFinalizer.ReadAndComputeScore(totalBuildings, gameData);
+                //for (int i = 0; i < playerStats.Count; i++)
+                //{
+                //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
+                //}
+                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats));
             }
         }
 

@@ -93,6 +93,18 @@
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
+    },
+    "GoodsSent": {
+      "address": "0x24BA8D0",
+      "type": "integer",
+      "category": "resource",
+      "offset": "0x4"
+    },
+    "GoodsReceived": {
+      "address": "0x24BA8AC",
+      "type": "integer",
+      "category": "resource",
+      "offset": "0x4"
     }
   }
  }
