@@ -9,17 +9,28 @@ namespace SHC
 {
     class Player
     {
-        public static Dictionary<String, Dictionary<String, Object>> Data { set;  get; }
-        int Number { get; }
-        int Score { get;  }
 
-        bool IsAlive
+        private Dictionary<String, Object> mostRecentStats = new Dictionary<string, object>()
+        {
+            {"PlayerNumber", 0 },
+            {"Active", true },
+            {"Alive", true },
+            {"LargestWeightedArmy", 0 },
+            {"LargestArmy", 0 },
+        };
+
+        private int Number { get; }
+        private int Score { get; }
+
+        private bool IsAlive
         {
             get
             {
                 return Reader.TestZero(0x024BA918 + 4 * (Number - 1), 4);
             }
         }
+
+        public static Dictionary<String, Dictionary<String, Object>> Data { set;  get; }
 
         public Player(int number)
         {
@@ -32,9 +43,14 @@ namespace SHC
             Int32 weightedUnits = 0;
             Int32 resources = 0;
 
-            Dictionary<String, Object> jsonDict = new Dictionary<String, Object>();
-            jsonDict["PlayerNumber"] = this.Number;
-            jsonDict["Alive"] = this.IsAlive;
+            mostRecentStats["PlayerNumber"] = this.Number;
+            bool alive = this.IsAlive;
+            mostRecentStats["Alive"] = alive;
+
+            if (!alive)
+            {
+                return mostRecentStats;
+            }
 
             foreach (KeyValuePair<String, Dictionary<String, Object>> entry in Data)
             {
@@ -43,28 +59,32 @@ namespace SHC
                 if (entry.Key == "Gold")
                 {
                     gold += Reader.ReadInt(addr, 8);
-                    jsonDict["Gold"] = gold;
+                    mostRecentStats["Gold"] = gold;
                     continue;
                 } else if (entry.Key == "WeightedUnits")
                 {
                     weightedUnits += Reader.ReadInt(addr, 8);
-                    jsonDict["WeightedUnits"] = weightedUnits;
+                    mostRecentStats["WeightedUnits"] = weightedUnits;
+                    mostRecentStats["LargestWeightedArmy"] = Math.Max(Convert.ToInt32(mostRecentStats["LargestWeightedArmy"]), weightedUnits);
                     continue;
                 }
 
                 String type = (String)entry.Value["type"];
                 Object value = Reader.ReadType(addr, type);
 
+                if (entry.Key == "Units")
+                {
+                    mostRecentStats["LargestArmy"] = Math.Max(Convert.ToInt32(mostRecentStats["LargestArmy"]), Convert.ToInt32(value));
+                }
+
                 if ((String)entry.Value["category"] == "resource")
                 {
                     resources += Convert.ToInt32(value);
                 }
-                jsonDict[entry.Key] = value;
+                mostRecentStats[entry.Key] = value;
             }
-            Int32 score = (gold >> 2) + weightedUnits * 2 + Math.Min((resources >> 2),1) * 10;
-            jsonDict["Score"] = score;
-            jsonDict["Resources"] = resources;
-            return jsonDict;
+            mostRecentStats["Resources"] = resources;
+            return mostRecentStats;
         }
     }
 }

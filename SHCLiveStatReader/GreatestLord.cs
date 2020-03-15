@@ -13,13 +13,16 @@ namespace SHC
         static int maxPlayers = 8;
         public static List<Player> PlayerList { get; }
         static Dictionary<String, Dictionary<String, Dictionary<String, String>>> playerData;
+        static Dictionary<String, Object> statsDictionary;
+
         static GreatestLord()
         {
+            statsDictionary = new Dictionary<String, Object>();
             playerData = 
                 JsonConvert.DeserializeObject<Dictionary<String, Dictionary<String, Dictionary<String, String>>>>(File.ReadAllText("memory/greatestlord.json"));
         }
 
-        public static Dictionary<String, Object> Update()
+        public static Dictionary<String, Object> Update(LinkedList<Dictionary<string, object>> endingPlayerStats)
         {
             Dictionary<String, Int32> scoreDict = new Dictionary<string, int>();
             scoreDict["Gold"] = 0;
@@ -31,7 +34,6 @@ namespace SHC
             scoreDict["Map End Month"] = 0;
             scoreDict["WeightedBuildingsDestroyed"] = 0;
 
-            Dictionary<String, Object> jsonDict = new Dictionary<String, Object>();
             Dictionary<String, Object> mapStats = new Dictionary<String, Object>();
 
             foreach (KeyValuePair<String, Dictionary<String, String>> entry in playerData["Map"])
@@ -48,7 +50,12 @@ namespace SHC
                     continue;
                 }
             }
-            jsonDict["Map"] = mapStats;
+            if ((int)mapStats["Map Start Year"] == 0)
+            {
+                return statsDictionary;
+            }
+
+            statsDictionary["Map"] = mapStats;
 
             LinkedList<Dictionary<String, Object>> playerStats = new LinkedList<Dictionary<String, Object>>();
             for (var i = 0; i < GreatestLord.maxPlayers; i++)
@@ -81,14 +88,27 @@ namespace SHC
                 {
                     continue;
                 }
-                currentPlayer["Score"] = 
+
+                foreach (var player in endingPlayerStats)
+                {
+                    if ((int)player["PlayerNumber"] == (int)currentPlayer["PlayerNumber"])
+                    {
+                        currentPlayer["EconomyScore"] = player["EconomyScore"];
+                        currentPlayer["MilitaryScore"] = player["MilitaryScore"];
+                        currentPlayer["Score"] = player["Score"];
+                        currentPlayer["LargestWeightedArmy"] = player["LargestWeightedArmy"];
+                        currentPlayer["LargestArmy"] = player["LargestArmy"];
+                    }
+                }
+
+                currentPlayer["VanillaScore"] = 
                     GreatestLord.CalculateScore(scoreDict["Gold"], scoreDict["LordKills"], scoreDict["WeightedTroopsKilled"], 
                     scoreDict["WeightedBuildingsDestroyed"], scoreDict["Map Start Year"], scoreDict["Map Start Month"],
                     scoreDict["Map End Year"], scoreDict["Map End Month"]);
                 playerStats.AddLast(currentPlayer);
             }
-            jsonDict["PlayerStatistics"] = playerStats;
-            return jsonDict;
+            statsDictionary["PlayerStatistics"] = playerStats;
+            return statsDictionary;
         }
 
         public static long CalculateScore

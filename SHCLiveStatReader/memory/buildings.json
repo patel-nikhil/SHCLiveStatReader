@@ -1,0 +1,13 @@
+{
+  "Buildings": {
+    "address": "0x00F9C6CA",
+    "type": "integer",
+    "category": "building",
+    "owneroffset": "0x4",
+    "workersneededoffset": "0xC6",
+    "workersworkingoffset": "0xC8",
+    "workersmissingoffset": "0xCA",
+    "snoozedoffset": "0x1C4",
+    "offset": "0x32C"
+  }
+}
