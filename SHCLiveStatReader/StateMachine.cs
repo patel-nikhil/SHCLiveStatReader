@@ -119,7 +119,7 @@ namespace SHC
                 System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats));
             }
 
-            if (Lobby())
+            if (Lobby() || Stats())
             {
                 System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
             }

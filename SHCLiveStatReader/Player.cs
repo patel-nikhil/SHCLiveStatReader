@@ -17,6 +17,9 @@ namespace SHC
             {"Alive", true },
             {"LargestWeightedArmy", 0 },
             {"LargestArmy", 0 },
+            {"EconomyScore", 0 },
+            {"MilitaryScore", 0 },
+            {"Score", 0 }
         };
 
         private int Number { get; }

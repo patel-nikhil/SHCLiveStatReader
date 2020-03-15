@@ -1,22 +1,22 @@
 {
   "Map": {
-    "Map Name": {
+    "MapName": {
       "address": "0x24B649C",
       "type": "string"
     },
-    "Map Start Year": {
+    "MapStartYear": {
       "address": "0x24BA938",
       "type": "integer"
     },
-    "Map Start Month": {
+    "MapStartMonth": {
       "address": "0x24BA93C",
       "type": "byte"
     },
-    "Map End Year": {
+    "MapEndYear": {
       "address": "0x24BA940",
       "type": "integer"
     },
-    "Map End Month": {
+    "MapEndMonth": {
       "address": "0x24BA944",
       "type": "byte"
     }

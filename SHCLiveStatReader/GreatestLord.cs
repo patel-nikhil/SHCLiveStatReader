@@ -28,10 +28,10 @@ namespace SHC
             scoreDict["Gold"] = 0;
             scoreDict["WeightedTroopsKilled"] = 0;
             scoreDict["LordKills"] = 0;
-            scoreDict["Map Start Year"] = 0;
-            scoreDict["Map Start Month"] = 0;
-            scoreDict["Map End Year"] = 0;
-            scoreDict["Map End Month"] = 0;
+            scoreDict["MapStartYear"] = 0;
+            scoreDict["MapStartMonth"] = 0;
+            scoreDict["MapEndYear"] = 0;
+            scoreDict["MapEndMonth"] = 0;
             scoreDict["WeightedBuildingsDestroyed"] = 0;
 
             Dictionary<String, Object> mapStats = new Dictionary<String, Object>();
@@ -50,7 +50,7 @@ namespace SHC
                     continue;
                 }
             }
-            if ((int)mapStats["Map Start Year"] == 0)
+            if ((int)mapStats["MapStartYear"] == 0)
             {
                 return statsDictionary;
             }
@@ -103,8 +103,8 @@ namespace SHC
 
                 currentPlayer["VanillaScore"] = 
                     GreatestLord.CalculateScore(scoreDict["Gold"], scoreDict["LordKills"], scoreDict["WeightedTroopsKilled"], 
-                    scoreDict["WeightedBuildingsDestroyed"], scoreDict["Map Start Year"], scoreDict["Map Start Month"],
-                    scoreDict["Map End Year"], scoreDict["Map End Month"]);
+                    scoreDict["WeightedBuildingsDestroyed"], scoreDict["MapStartYear"], scoreDict["MapStartMonth"],
+                    scoreDict["MapEndYear"], scoreDict["MapEndMonth"]);
                 playerStats.AddLast(currentPlayer);
             }
             statsDictionary["PlayerStatistics"] = playerStats;

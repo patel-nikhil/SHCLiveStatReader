@@ -35,6 +35,7 @@ namespace SHC
 
             for (var i = 0; i < gameData.Count; i++)
             {
+                gameData.ElementAt(i)["Buildings"] = new Dictionary<String, int>();
                 gameData.ElementAt(i)["CurrentWeightedBuildings"] = 0;
                 gameData.ElementAt(i)["WeightedActiveBuildings"] = 0;
                 gameData.ElementAt(i)["CurrentWorkersNeeded"] = 0;
@@ -66,6 +67,12 @@ namespace SHC
                         gameData.ElementAt(playerPos)["CurrentWorkersNeeded"] = Convert.ToInt32(gameData.ElementAt(playerPos)["CurrentWorkersNeeded"]) + workers;
                         gameData.ElementAt(playerPos)["CurrentWorkersWorking"] = Convert.ToInt32(gameData.ElementAt(playerPos)["CurrentWorkersWorking"]) + workersWorking;
                         gameData.ElementAt(playerPos)["CurrentWorkersMissing"] = Convert.ToInt32(gameData.ElementAt(playerPos)["CurrentWorkersMissing"]) + workersMissing;
+
+                        String buildingName = names["Buildings"][buildingID.ToString()];
+                        if (!((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"]).ContainsKey(buildingName)){
+                            ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = 0;
+                        }
+                        ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] + 1;
                     }
                     i++;
                 }
