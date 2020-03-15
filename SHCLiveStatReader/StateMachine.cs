@@ -16,6 +16,8 @@ namespace SHC
 
         static String currentFilename = "GreatestLord.txt";
 
+        static LinkedList<Dictionary<String, Object>> playerStats;
+
         static StateMachine()
         {
             State lobby = new State("Lobby", () => Reader.TestZero(0x024BA938, 4));
@@ -70,7 +72,7 @@ namespace SHC
 
                 if (Stats())
                 {
-                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update()));
+                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats)));
                 } else if (Game() && prevState == stateList["Lobby"])
                 {
                     Func<String> GetFilename = () => { return "GreatestLord " + gen.Next().ToString() + ".txt"; };
@@ -109,12 +111,17 @@ namespace SHC
                         totalBuildings += Convert.ToInt32(data["CurrentTotalBuildings"]);
                     }
                 }
-                LinkedList<Dictionary<String, Object>> playerStats = PlayerStatFinalizer.ReadAndComputeScore(totalBuildings, gameData);
+                playerStats = PlayerStatFinalizer.ReadAndComputeScore(totalBuildings, gameData);
                 //for (int i = 0; i < playerStats.Count; i++)
                 //{
                 //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
                 //}
                 System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats));
+            }
+
+            if (Lobby())
+            {
+                System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
             }
         }
 

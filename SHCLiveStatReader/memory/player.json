@@ -214,5 +214,11 @@
     "type": "integer",
     "category": "resource",
     "offset": "0x4"
+  },
+  "AleCoveragePercent": {
+    "address": "011F46D0",
+    "type": "integer",
+    "category": "popularity",
+    "offset": "0x39F4"
   }
 }
