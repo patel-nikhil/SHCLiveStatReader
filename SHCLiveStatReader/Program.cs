@@ -32,10 +32,12 @@ namespace SHC
                 try
                 {
                     StateMachine.Update();
-                } catch (Exception)
+                }
+                catch (SHCNotFoundException) { }
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message + "\n" + e.StackTrace);
                     File.WriteAllText(playerDataFileName, String.Empty);
-                    StateMachine.Reset();
                 }
             }
         }

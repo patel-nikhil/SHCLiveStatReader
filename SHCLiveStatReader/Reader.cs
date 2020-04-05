@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace SHC
@@ -19,8 +20,15 @@ namespace SHC
 
         static IntPtr GetProcessHandle()
         {
-            Process process = Process.GetProcessesByName("Stronghold_Crusader_Extreme")[0];
-            return OpenProcess(PROCESS_WM_READ, false, process.Id);
+            try
+            {
+                Process process = Process.GetProcessesByName("Stronghold_Crusader_Extreme")[0];
+                return OpenProcess(PROCESS_WM_READ, false, process.Id);
+            }
+            catch (Exception)
+            {
+                throw new SHCNotFoundException();
+            }
         }
 
         public static bool TestZero(Int32 addr, Int32 size) => Reader.ReadInt(addr, size) == 0;

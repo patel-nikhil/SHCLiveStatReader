@@ -103,7 +103,11 @@
     "100": "statue",
     "101": "shrine",
     "102": "bee_hive",
-    "103": "dancingbear"
+    "103": "dancingbear",
+    "104": "pond",
+    "105": "bear cave",
+    "106": "outpost",
+    "107": "outpost"
   },
   "Units": {
     "1": "peasant",

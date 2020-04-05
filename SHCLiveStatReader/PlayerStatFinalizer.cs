@@ -21,7 +21,7 @@ namespace SHC
             names = JsonConvert.DeserializeObject<Dictionary<String, Dictionary<String, String>>>(File.ReadAllText("memory/names.json"));
         }
 
-        public static LinkedList<Dictionary<String, Object>> ReadAndComputeScore(Int32 totalBuildings, LinkedList<Dictionary<String, Object>> gameData) {
+        public static LinkedList<Dictionary<String, Object>> ReadAndComputeScore(LinkedList<Dictionary<String, Object>> gameData) {
 
             Int32 addr = Convert.ToInt32(buildingData["Buildings"]["address"], 16);
             Int32 offset = Convert.ToInt32(buildingData["Buildings"]["offset"], 16);
@@ -30,6 +30,7 @@ namespace SHC
             Int32 workersWorkingOffset = Convert.ToInt32(buildingData["Buildings"]["workersworkingoffset"], 16);
             Int32 workersMissingOffset = Convert.ToInt32(buildingData["Buildings"]["workersmissingoffset"], 16);
             Int32 snoozedOffset = Convert.ToInt32(buildingData["Buildings"]["snoozedoffset"], 16);
+            Int32 totalBuildings = Reader.ReadInt(Convert.ToInt32(buildingData["Buildings"]["total"], 16), 4);
 
             Dictionary<Int32, Dictionary<Int32, Dictionary<String, Int32>>> buildingCount = new Dictionary<Int32, Dictionary<Int32, Dictionary<String, Int32>>>();
 
@@ -56,7 +57,7 @@ namespace SHC
                     if (owner > 0 && owner < 9)
                     {
                         int playerPos = 0;
-                        while (Convert.ToInt32(gameData.ElementAt(playerPos)["PlayerNumber"]) != owner && playerPos < gameData.Count){
+                        while (playerPos < gameData.Count && Convert.ToInt32(gameData.ElementAt(playerPos)["PlayerNumber"]) != owner){
                             playerPos++;
                         }
                         if (!snoozed)
@@ -68,11 +69,22 @@ namespace SHC
                         gameData.ElementAt(playerPos)["CurrentWorkersWorking"] = Convert.ToInt32(gameData.ElementAt(playerPos)["CurrentWorkersWorking"]) + workersWorking;
                         gameData.ElementAt(playerPos)["CurrentWorkersMissing"] = Convert.ToInt32(gameData.ElementAt(playerPos)["CurrentWorkersMissing"]) + workersMissing;
 
-                        String buildingName = names["Buildings"][buildingID.ToString()];
-                        if (!((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"]).ContainsKey(buildingName)){
-                            ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = 0;
+                        if (!names["Buildings"].ContainsKey(buildingID.ToString())){
+                            if (!((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"]).ContainsKey(buildingID.ToString()))
+                            {
+                                ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])["Unknown"] = 0;
+                            }
+                            ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])["Unknown"] = ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])["Unknown"] + 1;
+                        } 
+                        else
+                        {
+                            String buildingName = names["Buildings"][buildingID.ToString()];
+                            if (!((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"]).ContainsKey(buildingName))
+                            {
+                                ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = 0;
+                            }
+                            ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] + 1;
                         }
-                        ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] = ((Dictionary<String, int>)gameData.ElementAt(playerPos)["Buildings"])[buildingName] + 1;
                     }
                     i++;
                 }

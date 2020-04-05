@@ -1,6 +1,6 @@
 {
   "Buildings": {
-    "address": "0x00F9C6CA",
+    "address": "0x00F98DB2",
     "type": "integer",
     "category": "building",
     "owneroffset": "0x4",
@@ -8,6 +8,7 @@
     "workersworkingoffset": "0xC8",
     "workersmissingoffset": "0xCA",
     "snoozedoffset": "0x1C4",
-    "offset": "0x32C"
+    "offset": "0x32C",
+    "total": "0x00F989A0"
   }
 }

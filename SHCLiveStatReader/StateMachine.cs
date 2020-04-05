@@ -21,8 +21,8 @@ namespace SHC
         static StateMachine()
         {
             State lobby = new State("Lobby", () => Reader.TestZero(0x024BA938, 4));
-            State game = new State("Game", () => !Reader.TestZero(0x024BA938, 4) && !Reader.IsStatic(0x024BAEC0, 4));
-            State stats = new State("Stats", () => !Reader.TestZero(0x24BA938,4) && Reader.IsStatic(0x024BAEC0, 4));
+            State game = new State("Game", () => !Reader.TestZero(0x024BA938, 4) && !Reader.ReadString(0x1311607).Equals("shc_back.tgx"));
+            State stats = new State("Stats", () => !Reader.TestZero(0x24BA938,4));
 
             stateList["Lobby"] = lobby;
             stateList["Game"] = game;
@@ -44,7 +44,14 @@ namespace SHC
                 return stateList["Game"];
             } else if (currentState == stateList["Game"])
             {
-                return stateList["Stats"];
+                if (Reader.TestZero(0x024BA938, 4))
+                {
+                    return stateList["Lobby"];
+                }
+                else
+                {
+                    return stateList["Stats"];
+                }
             } else if (currentState == stateList["Stats"])
             {
                 if (Reader.TestZero(0x024BA938, 4))
@@ -69,10 +76,11 @@ namespace SHC
             {
                 State prevState = StateMachine.currentState;
                 currentState = StateMachine.Next();
+                Console.WriteLine("Switched to state: " + currentState.ToString());
 
                 if (Stats())
                 {
-                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats)));
+                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
                 } else if (Game() && prevState == stateList["Lobby"])
                 {
                     Func<String> GetFilename = () => { return "GreatestLord " + gen.Next().ToString() + ".txt"; };
@@ -103,20 +111,12 @@ namespace SHC
                     }
                     gameData.AddLast(player.Update());
                 }
-                Int32 totalBuildings = 0;
-                foreach (var data in gameData)
-                {
-                    if (data.ContainsKey("CurrentTotalBuildings"))
-                    {
-                        totalBuildings += Convert.ToInt32(data["CurrentTotalBuildings"]);
-                    }
-                }
-                playerStats = PlayerStatFinalizer.ReadAndComputeScore(totalBuildings, gameData);
+                playerStats = PlayerStatFinalizer.ReadAndComputeScore(gameData);
                 //for (int i = 0; i < playerStats.Count; i++)
                 //{
                 //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
                 //}
-                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats));
+                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
             }
 
             if (Lobby() || Stats())
