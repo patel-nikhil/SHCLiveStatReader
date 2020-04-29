@@ -60,6 +60,12 @@ namespace SHC
                         while (playerPos < gameData.Count && Convert.ToInt32(gameData.ElementAt(playerPos)["PlayerNumber"]) != owner){
                             playerPos++;
                         }
+                        if (playerPos >= gameData.Count)
+                        {
+                            i++;
+                            count++;
+                            continue;
+                        }
                         if (!snoozed)
                         {
                             gameData.ElementAt(playerPos)["WeightedActiveBuildings"] = Convert.ToInt32(gameData.ElementAt(playerPos)["WeightedActiveBuildings"]) + weights["Buildings"][buildingID.ToString()];
