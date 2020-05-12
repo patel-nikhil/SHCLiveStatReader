@@ -32,8 +32,10 @@ namespace SHC
                 try
                 {
                     StateMachine.Update();
+                    System.Threading.Thread.Sleep(300);
                 }
-                catch (SHCNotFoundException) { }
+                catch (SHCNotFoundException) {
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message + "\n" + e.StackTrace);

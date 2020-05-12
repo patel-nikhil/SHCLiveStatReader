@@ -1,47 +1,47 @@
 {
   "Map": {
     "MapName": {
-      "address": "0x24B649C",
+      "address": "0x1761924",
       "type": "string"
     },
     "MapStartYear": {
-      "address": "0x24BA938",
+      "address": "0x1765688",
       "type": "integer"
     },
     "MapStartMonth": {
-      "address": "0x24BA93C",
+      "address": "0x176568C",
       "type": "byte"
     },
     "MapEndYear": {
-      "address": "0x24BA940",
+      "address": "0x1765690",
       "type": "integer"
     },
     "MapEndMonth": {
-      "address": "0x24BA944",
+      "address": "0x1765694",
       "type": "byte"
     }
   },
   "Player": {
     "Active": {
-      "address": "0x24BA557",
+      "address": "0x17652a7",
       "type": "boolean",
       "category": "other",
       "offset": "0x1"
     },
     "Name": {
-      "address": "0x24BA286",
+      "address": "0x1761A6E",
       "type": "string",
       "category": "other",
-      "offset": "0x5A"
+      "offset": "0xFA"
     },
     "Team": {
-      "address": "0x24BAAB6",
+      "address": "0x1765806",
       "type": "byte",
       "category": "other",
       "offset": "0x1"
     },
     "Gold": {
-      "address": "0x24BA564",
+      "address": "0x17652b4",
       "type": "integer",
       "category": "other",
       "offset": "0x4"
@@ -53,55 +53,55 @@
       "offset": "0x4"
     },
     "WeightedTroopsKilled": {
-      "address": "0x24BA840",
+      "address": "0x1765590",
       "type": "integer",
       "category": "military",
       "offset": "0x4"
     },
     "WeightedBuildingsDestroyed": {
-      "address": "0x24BA864",
+      "address": "0x17655b4",
       "type": "integer",
       "category": "military",
       "offset": "0x4"
     },
     "LordKills": {
-      "address": "0x24BA7EA",
+      "address": "0x176553a",
       "type": "byte",
       "category": "military",
       "offset": "0x1"
     },
     "Food": {
-      "address": "0x24BA730",
+      "address": "0x1765480",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
     },
     "Wood": {
-      "address": "0x24BA79C",
+      "address": "0x17654ec",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
     },
     "Stone": {
-      "address": "0x24BA778",
+      "address": "0x17654c8",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
     },
     "Weapons": {
-      "address": "0x24BA7F8",
+      "address": "0x1765548",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
     },
     "GoodsSent": {
-      "address": "0x24BA8D0",
+      "address": "0x1765620",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"
     },
     "GoodsReceived": {
-      "address": "0x24BA8AC",
+      "address": "0x17655fc",
       "type": "integer",
       "category": "resource",
       "offset": "0x4"

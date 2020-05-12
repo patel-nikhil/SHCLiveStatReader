@@ -29,7 +29,7 @@ namespace SHC
         {
             get
             {
-                return Reader.TestZero(0x024BA918 + 4 * (Number - 1), 4);
+                return Reader.TestZero(0x1765668 + 4 * (Number - 1), 4);
             }
         }
 
