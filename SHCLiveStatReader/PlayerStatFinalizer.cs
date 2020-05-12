@@ -108,9 +108,9 @@ namespace SHC
                 militaryScore = Convert.ToInt32(gameData.ElementAt(i)["WeightedTroopsKilled"]);
                 militaryScore += 5 * Convert.ToInt32(gameData.ElementAt(i)["WeightedBuildingsDestroyed"]);
                 economyScore += (Convert.ToInt32(gameData.ElementAt(i)["Resources"]) + Convert.ToInt32(gameData.ElementAt(i)["GoodsSent"]) + Convert.ToInt32(gameData.ElementAt(i)["Gold"])) / 10;
-                economyScore += Convert.ToInt32(gameData.ElementAt(i)["WeightedUnits"]);
-                economyScore += 5 * Convert.ToInt32(gameData.ElementAt(i)["CurrentWeightedBuildings"]);
-                economyScore += Convert.ToInt32(gameData.ElementAt(i)["Population"]);
+                militaryScore += Convert.ToInt32(gameData.ElementAt(i)["WeightedUnits"]);
+                militaryScore += 5 * Convert.ToInt32(gameData.ElementAt(i)["CurrentWeightedBuildings"]);
+                militaryScore += Convert.ToInt32(gameData.ElementAt(i)["Population"]);
                 gameData.ElementAt(i)["EconomyScore"] = economyScore;
                 gameData.ElementAt(i)["MilitaryScore"] = militaryScore;
                 gameData.ElementAt(i)["Score"] = economyScore + militaryScore;

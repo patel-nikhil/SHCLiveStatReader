@@ -17,6 +17,18 @@
     "category": "other",
     "offset": "0x1"
   },
+  "MapName": {
+    "address": "0x24B649C",
+    "type": "string",
+    "category": "other",
+    "offset": "0"
+  },
+  "TotalGold": {
+    "address": "0x24BA564",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x4"
+  },
   "Gold": {
     "address": "0x11F2938",
     "type": "integer",

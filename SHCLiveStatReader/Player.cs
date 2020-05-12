@@ -9,6 +9,10 @@ namespace SHC
 {
     class Player
     {
+        static Dictionary<String, Dictionary<String, Int32>> weights;
+        static Player() {
+            weights = JsonConvert.DeserializeObject<Dictionary<String, Dictionary<String, Int32>>>(System.IO.File.ReadAllText("memory/weights.json"));
+        }
 
         private Dictionary<String, Object> mostRecentStats = new Dictionary<string, object>()
         {
@@ -82,7 +86,14 @@ namespace SHC
 
                 if ((String)entry.Value["category"] == "resource")
                 {
-                    resources += Convert.ToInt32(value);
+                    try
+                    {
+                        resources += Convert.ToInt32(value) * weights["Resources"][entry.Key];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        resources += Convert.ToInt32(value);
+                    }
                 }
                 mostRecentStats[entry.Key] = value;
             }
