@@ -1,36 +1,36 @@
 {
   "Active": {
-    "address": "0x24BA557",
+    "address": "0x17688CF",
     "type": "boolean",
     "category": "other",
     "offset": "0x1"
   },
   "Name": {
-    "address": "0x24BA286",
+    "address": "0x17685FE",
     "type": "string",
     "category": "other",
     "offset": "0x5A"
   },
   "Team": {
-    "address": "0x24BAAB6",
+    "address": "0x1768E2E",
     "type": "byte",
     "category": "other",
     "offset": "0x1"
   },
   "Gold": {
-    "address": "0x11F2938",
+    "address": "0xD64830",
     "type": "integer",
     "category": "other",
     "offset": "0x39F4"
   },
   "Units": {
-    "address": "0x11F27E4",
+    "address": "0xD646DC",
     "type": "integer",
     "category": "military",
     "offset": "0x39F4"
   },
   "WeightedUnits": {
-    "address": "0x11F5D14",
+    "address": "0xD67C0C",
     "type": "integer",
     "category": "military",
     "offset": "0x39F4"
@@ -42,181 +42,181 @@
     "offset": "0x4"
   },
   "CurrentTotalBuildings": {
-    "address": "0x129377C",
+    "address": "0xD679A8",
     "type": "integer",
     "category": "military",
     "offset": "0x4"
   },
   "Popularity": {
-    "address": "0x11F2870",
+    "address": "0xD64768",
     "type": "word",
     "category": "other",
     "offset": "0x39F4"
   },
   "Population": {
-    "address": "0x11F45AC",
+    "address": "0xD664A4",
     "type": "word",
     "category": "other",
     "offset": "0x39F4"
   },
   "Housing": {
-    "address": "0x11F24A0",
+    "address": "0xD64398",
     "type": "word",
     "category": "other",
     "offset": "0x39F4"
   },
   "Wood": {
-    "address": "0x11F2904",
+    "address": "0xD647FC",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Stone": {
-    "address": "0x11F290C",
+    "address": "0xD64804",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Iron": {
-    "address": "0x11F2914",
+    "address": "0xD6480C",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Pitch": {
-    "address": "0x11F2918",
+    "address": "0xD64810",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Apples": {
-    "address": "0x11F2930",
+    "address": "0xD64828",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Meat": {
-    "address": "0x11F292C",
+    "address": "0xD64824",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Cheese": {
-    "address": "0x11F2928",
+    "address": "0xD64820",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Bread": {
-    "address": "0x11F2924",
+    "address": "0xD6481C",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "MetalArmor": {
-    "address": "0x11F295C",
+    "address": "0xD64854",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "LeatherArmor": {
-    "address": "0x11F2958",
+    "address": "0xD64850",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Swords": {
-    "address": "0x11F2954",
+    "address": "0xD6484C",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Maces": {
-    "address": "0x11F2950",
+    "address": "0xD64848",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Pikes": {
-    "address": "0x11F294c",
+    "address": "0xD64844",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Spears": {
-    "address": "0x11F2948",
+    "address": "0xD64840",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Crossbows": {
-    "address": "0x11F2944",
+    "address": "0xD6483C",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Bows": {
-    "address": "0x11F2940",
+    "address": "0xD64838",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Flour": {
-    "address": "0x11F293C",
+    "address": "0xD64834",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Hops": {
-    "address": "0x11F2908",
+    "address": "0xD64800",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Ale": {
-    "address": "0x11F2934",
+    "address": "0xD6482C",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "Wheat": {
-    "address": "0x11F2920",
+    "address": "0xD64818",
     "type": "integer",
     "category": "resource",
     "offset": "0x39F4"
   },
   "WeightedLosses": {
-    "address": "0x11F46CC",
+    "address": "0xD665C4",
     "type": "integer",
     "category": "military",
     "offset": "0x39F4"
   },
   "WeightedTroopsKilled": {
-    "address": "0x24BA840",
+    "address": "0x1768BB8",
     "type": "integer",
     "category": "military",
     "offset": "0x4"
   },
   "WeightedBuildingsDestroyed": {
-    "address": "0x24BA864",
+    "address": "0x1768BDC",
     "type": "integer",
     "category": "military",
     "offset": "0x4"
   },
   "GoodsSent": {
-    "address": "0x24BA8D0",
+    "address": "0x1768C48",
     "type": "integer",
     "category": "resource",
     "offset": "0x4"
   },
   "GoodsReceived": {
-    "address": "0x24BA8AC",
+    "address": "0x1768C24",
     "type": "integer",
     "category": "resource",
     "offset": "0x4"
   },
   "AleCoveragePercent": {
-    "address": "011F46D0",
+    "address": "0xD665C8",
     "type": "integer",
     "category": "popularity",
     "offset": "0x39F4"

@@ -22,7 +22,7 @@ namespace SHC
         {
             try
             {
-                Process process = Process.GetProcessesByName("Stronghold_Crusader_Extreme")[0];
+                Process process = Process.GetProcessesByName("Stronghold Crusader")[0];
                 return OpenProcess(PROCESS_WM_READ, false, process.Id);
             }
             catch (Exception)

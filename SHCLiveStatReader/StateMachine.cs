@@ -20,13 +20,11 @@ namespace SHC
 
         static StateMachine()
         {
-            State lobby = new State("Lobby", () => Reader.TestZero(0x024BA938, 4));
-            State game = new State("Game", () => !Reader.TestZero(0x024BA938, 4) && !Reader.ReadString(0x1311607).Equals("shc_back.tgx"));
-            State stats = new State("Stats", () => !Reader.TestZero(0x24BA938,4));
+            State lobby = new State("Lobby", () => Reader.TestZero(0x1768CB0, 4));
+            State game = new State("Game", () => !Reader.TestZero(0x1768CB0, 4));
 
             stateList["Lobby"] = lobby;
             stateList["Game"] = game;
-            stateList["Stats"] = stats;
 
             ActivePlayers = new List<int>();
             currentState = lobby;
@@ -42,32 +40,15 @@ namespace SHC
             if (currentState == stateList["Lobby"])
             {
                 return stateList["Game"];
-            } else if (currentState == stateList["Game"])
-            {
-                if (Reader.TestZero(0x024BA938, 4))
-                {
-                    return stateList["Lobby"];
-                }
-                else
-                {
-                    return stateList["Stats"];
-                }
-            } else if (currentState == stateList["Stats"])
-            {
-                if (Reader.TestZero(0x024BA938, 4))
-                {
-                    return stateList["Lobby"];
-                } else
-                {
-                    return stateList["Game"];
-                }
             }
-            return stateList["Lobby"];
+            else
+            {
+                return stateList["Lobby"];
+            }                
         }
 
         public static bool Lobby() => currentState == stateList["Lobby"];
         public static bool Game() => currentState == stateList["Game"];
-        public static bool Stats() => currentState == stateList["Stats"];
 
 
         public static void Update()
@@ -78,10 +59,7 @@ namespace SHC
                 currentState = StateMachine.Next();
                 Console.WriteLine("Switched to state: " + currentState.ToString());
 
-                if (Stats())
-                {
-                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
-                } else if (Game() && prevState == stateList["Lobby"])
+                if (Game() && prevState == stateList["Lobby"])
                 {
                     Func<String> GetFilename = () => { return "GreatestLord " + gen.Next().ToString() + ".txt"; };
                     if (File.Exists(currentFilename))
@@ -112,16 +90,14 @@ namespace SHC
                     gameData.AddLast(player.Update());
                 }
                 playerStats = PlayerStatFinalizer.ReadAndComputeScore(gameData);
-                //for (int i = 0; i < playerStats.Count; i++)
-                //{
-                //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
-                //}
-                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
+
+                File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
             }
 
-            if (Lobby() || Stats())
+            if (Lobby())
             {
-                System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
+                File.WriteAllText("SHCPlayerData.txt", String.Empty);
             }
         }
 
