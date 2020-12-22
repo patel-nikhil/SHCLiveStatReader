@@ -116,13 +116,14 @@ namespace SHC
                 //{
                 //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
                 //}
-                System.IO.File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
             }
 
-            if (Lobby() || Stats())
-            {
-                System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
-            }
+            //if (Lobby() || Stats())
+            //{
+            //    System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
+            //}
         }
 
         public static String CurrentState()
