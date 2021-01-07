@@ -28,7 +28,6 @@ namespace SHC
                     File.Move(greatestLordDataFileName, Path.GetFileNameWithoutExtension(greatestLordDataFileName) + count.ToString() + ".txt");
                 }
             }
-
             while(true){
                 try
                 {

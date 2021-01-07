@@ -80,7 +80,7 @@ namespace SHC
 
                 if (Stats())
                 {
-                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
+                    File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented), Encoding.UTF8);
                 } else if (Game() && prevState == stateList["Lobby"])
                 {
                     Func<String> GetFilename = () => { return "GreatestLord " + gen.Next().ToString() + ".txt"; };
@@ -112,8 +112,8 @@ namespace SHC
                     gameData.AddLast(player.Update());
                 }
                 playerStats = PlayerStatFinalizer.ReadAndComputeScore(gameData);
-                File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
-                File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented), Encoding.UTF8);
+                File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented), Encoding.UTF8);
             }
 
             //if (Lobby() || Stats())
