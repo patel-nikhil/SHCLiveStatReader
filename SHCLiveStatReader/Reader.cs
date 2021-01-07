@@ -74,6 +74,15 @@ namespace SHC
             return System.Text.Encoding.UTF8.GetString(buffer).Split('\0')[0];
         }
 
+        public static byte[] ReadBytes(Int32 addr, Int32 size)
+        {
+            IntPtr processHandle = GetProcessHandle();
+            int bytesRead = 0;
+            byte[] buffer = new byte[size];
+            ReadProcessMemory((int)processHandle, addr, buffer, buffer.Length, ref bytesRead);
+            return buffer;
+        }
+
         public static Object ReadType(Int32 addr, String type)
         {
             if (type == "integer")

@@ -43,15 +43,17 @@ namespace SHC
                 gameData.ElementAt(i)["CurrentWorkersWorking"] = 0;
                 gameData.ElementAt(i)["CurrentWorkersMissing"] = 0;
             }
+            byte[] buildingArray = Reader.ReadBytes(addr, 0x490 * 10000);
             int count = 0;
             for (var i = 0; i < totalBuildings;)
             {
-                Int32 buildingID = Reader.ReadInt(addr + count * offset, 8);
-                Int32 owner = Reader.ReadByte(addr + count * offset + ownerOffset);
-                Int32 workers = Reader.ReadByte(addr + count * offset + workersNeededOffset);
-                Int32 workersWorking = Reader.ReadByte(addr + count * offset + workersWorkingOffset);
-                Int32 workersMissing = Reader.ReadByte(addr + count * offset + workersMissingOffset);
-                bool snoozed = Reader.ReadByte(addr + count * offset + snoozedOffset) == 0;
+                Int32 buildingID = BitConverter.ToInt32(buildingArray, count * offset + 8);
+                Int32 owner = buildingArray[count * offset + ownerOffset];
+                Int32 workers = buildingArray[count * offset + workersNeededOffset];
+                Int32 workersWorking = buildingArray[count * offset + workersWorkingOffset];
+                Int32 workersMissing = buildingArray[count * offset + workersMissingOffset];
+                bool snoozed = buildingArray[count * offset + snoozedOffset] == 0;
+
                 if (buildingID != 0 || count > 2 * i)
                 {
                     if (owner > 0 && owner < 9)
@@ -60,7 +62,7 @@ namespace SHC
                         while (playerPos < gameData.Count && Convert.ToInt32(gameData.ElementAt(playerPos)["PlayerNumber"]) != owner){
                             playerPos++;
                         }
-                        if (playerPos >= gameData.Count)
+                        if (playerPos >= gameData.Count || buildingID == 0)
                         {
                             i++;
                             count++;
@@ -105,7 +107,7 @@ namespace SHC
                 }
                 Int32 economyScore = 0;
                 Int32 militaryScore = 0;
-                militaryScore = Convert.ToInt32(gameData.ElementAt(i)["WeightedTroopsKilled"]);
+                militaryScore += Convert.ToInt32(gameData.ElementAt(i)["WeightedTroopsKilled"]);
                 militaryScore += 5 * Convert.ToInt32(gameData.ElementAt(i)["WeightedBuildingsDestroyed"]);
                 economyScore += (Convert.ToInt32(gameData.ElementAt(i)["Resources"]) + Convert.ToInt32(gameData.ElementAt(i)["GoodsSent"]) + Convert.ToInt32(gameData.ElementAt(i)["Gold"])) / 10;
                 militaryScore += Convert.ToInt32(gameData.ElementAt(i)["WeightedUnits"]);

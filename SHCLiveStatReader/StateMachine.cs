@@ -112,10 +112,6 @@ namespace SHC
                     gameData.AddLast(player.Update());
                 }
                 playerStats = PlayerStatFinalizer.ReadAndComputeScore(gameData);
-                //for (int i = 0; i < playerStats.Count; i++)
-                //{
-                //    Console.WriteLine(playerStats.ElementAt(i)["Name"].ToString() + "  " + playerStats.ElementAt(i)["Score"].ToString());
-                //}
                 File.WriteAllText("SHCPlayerData.txt", Newtonsoft.Json.JsonConvert.SerializeObject(playerStats, Newtonsoft.Json.Formatting.Indented));
                 File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented));
             }
