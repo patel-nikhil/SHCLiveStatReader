@@ -35,6 +35,12 @@
     "category": "other",
     "offset": "0x39F4"
   },
+  "TaxesSetting": {
+    "address": "0x11F45B4",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
   "Units": {
     "address": "0x11F27E4",
     "type": "integer",
@@ -43,6 +49,12 @@
   },
   "WeightedUnits": {
     "address": "0x11F5D14",
+    "type": "integer",
+    "category": "military",
+    "offset": "0x39F4"
+  },
+  "SiegeEngineCount": {
+    "address": "0x11F27E8",
     "type": "integer",
     "category": "military",
     "offset": "0x39F4"
@@ -58,6 +70,18 @@
     "type": "integer",
     "category": "military",
     "offset": "0x4"
+  },
+  "FarmCount": {
+    "address": "0x11F5D54",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "TotalFood": {
+    "address": "0x11f44C8",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
   },
   "Popularity": {
     "address": "0x11F2870",

@@ -19,6 +19,10 @@
     "MapEndMonth": {
       "address": "0x24BA944",
       "type": "byte"
+    },
+    "AdvantageSetting": {
+      "address": "0x24B7F4C",
+      "type": "byte"
     }
   },
   "Player": {
