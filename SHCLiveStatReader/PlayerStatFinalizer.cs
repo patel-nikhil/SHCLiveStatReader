@@ -47,7 +47,7 @@ namespace SHC
             int count = 0;
             for (var i = 0; i < totalBuildings;)
             {
-                Int32 buildingID = BitConverter.ToInt32(buildingArray, count * offset + 8);
+                Int32 buildingID = BitConverter.ToInt32(buildingArray, count * offset);
                 Int32 owner = buildingArray[count * offset + ownerOffset];
                 Int32 workers = buildingArray[count * offset + workersNeededOffset];
                 Int32 workersWorking = buildingArray[count * offset + workersWorkingOffset];
