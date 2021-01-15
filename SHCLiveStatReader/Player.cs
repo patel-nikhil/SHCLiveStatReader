@@ -44,6 +44,11 @@ namespace SHC
             this.Number = number;
         }
 
+        public void ResetLargestArmy()
+        {
+            mostRecentStats["LargestWeightedArmy"] = 0;
+        }
+
         public Dictionary<String, Object> Update()
         {
             Int32 gold = 0;

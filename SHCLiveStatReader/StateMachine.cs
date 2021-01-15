@@ -116,6 +116,13 @@ namespace SHC
                 File.WriteAllText(currentFilename, Newtonsoft.Json.JsonConvert.SerializeObject(GreatestLord.Update(playerStats), Newtonsoft.Json.Formatting.Indented), Encoding.UTF8);
             }
 
+            if (Lobby())
+            {
+                foreach(Player player in PlayerFactory.PlayerList){
+                    player.ResetLargestArmy();
+                }
+            }
+
             //if (Lobby() || Stats())
             //{
             //    System.IO.File.WriteAllText("SHCPlayerData.txt", String.Empty);
