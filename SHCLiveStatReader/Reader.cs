@@ -71,7 +71,7 @@ namespace SHC
             int bytesRead = 0;
             byte[] buffer = new byte[90];
             ReadProcessMemory((int)processHandle, addr, buffer, buffer.Length, ref bytesRead);
-            return System.Text.Encoding.UTF8.GetString(buffer).Split('\0')[0];
+            return System.Text.Encoding.GetEncoding(1252).GetString(buffer).Split('\0')[0];
         }
 
         public static byte[] ReadBytes(Int32 addr, Int32 size)
