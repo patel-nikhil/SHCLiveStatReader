@@ -77,6 +77,42 @@
     "category": "other",
     "offset": "0x39F4"
   },
+  "InnCount": {
+    "address": "0x11F5D54",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "PitchRigCount": {
+    "address": "0x11F5DBC",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "IronMineCount": {
+    "address": "0x11F5DB8",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "StoneQuarryCount": {
+    "address": "0x11F5DC0",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "BakeryCount": {
+    "address": "0x11F4FBC",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
+  "WorkingWoodcutterCount": {
+    "address": "0x11F4F48",
+    "type": "integer",
+    "category": "other",
+    "offset": "0x39F4"
+  },
   "TotalFood": {
     "address": "0x11f44C8",
     "type": "integer",
