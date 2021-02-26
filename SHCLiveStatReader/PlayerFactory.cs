@@ -1,26 +1,22 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static SHC.Constants;
 
 namespace SHC
 {
     class PlayerFactory
     {
-        static int maxPlayers = 8;
         public static List<Player> PlayerList { get; }
 
         static PlayerFactory()
         {
             Player.Data = 
-                JsonConvert.DeserializeObject<Dictionary<String,Dictionary<String, Object>>>(File.ReadAllText("memory/player.json"));
+                JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string, object>>>(File.ReadAllText("memory/player.json"));
 
             PlayerList = new List<Player>();
 
-            for (int i = 0; i < maxPlayers; i++)
+            for (int i = 0; i < MAX_PLAYERS; i++)
             {
                 PlayerList.Add(new Player(i + 1));
             }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using System.Text;
+using static SHC.Constants;
 
 namespace SHC
 {
@@ -22,7 +21,7 @@ namespace SHC
         {
             try
             {
-                Process process = Process.GetProcessesByName("Stronghold_Crusader_Extreme")[0];
+                Process process = Process.GetProcessesByName(SHC_PROCESS_NAME)[0];
                 return OpenProcess(PROCESS_WM_READ, false, process.Id);
             }
             catch (Exception)
@@ -31,14 +30,14 @@ namespace SHC
             }
         }
 
-        public static bool TestZero(Int32 addr, Int32 size) => Reader.ReadInt(addr, size) == 0;
-        public static bool IsStatic(Int32 addr, Int32 size) {
-            Int32 val = Reader.ReadInt(addr, size);
+        public static bool TestZero(int addr, int size) => Reader.ReadInt(addr, size) == 0;
+        public static bool IsStatic(int addr, int size) {
+            int val = ReadInt(addr, size);
             System.Threading.Thread.Sleep(20);
-            return Reader.ReadInt(addr, size) == val;
+            return ReadInt(addr, size) == val;
         }
 
-        public static Int32 ReadInt(Int32 addr, Int32 size)
+        public static int ReadInt(int addr, int size)
         {
             IntPtr processHandle = GetProcessHandle();
             int bytesRead = 0;
@@ -47,7 +46,16 @@ namespace SHC
             return BitConverter.ToInt32(buffer, 0);
         }
 
-        public static Int32 ReadByte(Int32 addr)
+        public static int ReadWord(int addr, int size)
+        {
+            IntPtr processHandle = GetProcessHandle();
+            int bytesRead = 0;
+            byte[] buffer = new byte[size];
+            ReadProcessMemory((int)processHandle, addr, buffer, buffer.Length, ref bytesRead);
+            return BitConverter.ToInt16(buffer, 0);
+        }
+
+        public static byte ReadByte(int addr)
         {
             IntPtr processHandle = GetProcessHandle();
             int bytesRead = 0;
@@ -56,7 +64,7 @@ namespace SHC
             return buffer[0];
         }
 
-        public static Boolean ReadBool(Int32 addr, Int32 size)
+        public static bool ReadBool(int addr, int size)
         {
             IntPtr processHandle = GetProcessHandle();
             int bytesRead = 0;
@@ -65,16 +73,16 @@ namespace SHC
             return BitConverter.ToBoolean(buffer, 0);
         }
 
-        public static String ReadString(Int32 addr)
+        public static string ReadString(int addr)
         {
             IntPtr processHandle = GetProcessHandle();
             int bytesRead = 0;
             byte[] buffer = new byte[90];
             ReadProcessMemory((int)processHandle, addr, buffer, buffer.Length, ref bytesRead);
-            return System.Text.Encoding.GetEncoding(1252).GetString(buffer).Split('\0')[0];
+            return Encoding.GetEncoding(1252).GetString(buffer).Split('\0')[0];
         }
 
-        public static byte[] ReadBytes(Int32 addr, Int32 size)
+        public static byte[] ReadBytes(int addr, int size)
         {
             IntPtr processHandle = GetProcessHandle();
             int bytesRead = 0;
@@ -83,15 +91,15 @@ namespace SHC
             return buffer;
         }
 
-        public static Object ReadType(Int32 addr, String type)
+        public static object ReadType(int addr, string type)
         {
             if (type == "integer")
             {
-                return Reader.ReadInt(addr, 8);
+                return Reader.ReadInt(addr, 4);
             }
             else if (type == "word")
             {
-                return Reader.ReadInt(addr, 4);
+                return Reader.ReadWord(addr, 2);
             }
             else if (type == "byte")
             {
